@@ -1,9 +1,6 @@
 from sqlalchemy import String,Column,Integer,DateTime,Enum
-from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
-
-Base = declarative_base()
-
+from app.core.database import Base
 class Message(Base) : 
   __tablename__ = "messages"
   id = Column(Integer,primary_key=True,index=True)
@@ -16,6 +13,6 @@ class Message(Base) :
     nullable=False,
     default="agent"
   )
-  raw_message = Column(String,nullable=False,unique=True)
+  raw_message = Column(String(400),nullable=False,unique=True)
   created_at = Column(DateTime,default=datetime.utcnow)
-  updated_at = Column(datetime,default=datetime.utcnow,onupdate=datetime.utcnow)
+  updated_at = Column(DateTime,default=datetime.utcnow,onupdate=datetime.utcnow)
