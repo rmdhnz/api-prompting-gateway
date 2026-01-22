@@ -13,6 +13,7 @@ class Message(Base) :
     nullable=False,
     default="agent"
   )
+  baus_user_id = Column(Integer,index=True,nullable=True)
   raw_message = Column(String(400),nullable=False)
   created_at = Column(DateTime,default=datetime.utcnow)
   updated_at = Column(DateTime,default=datetime.utcnow,onupdate=datetime.utcnow)
