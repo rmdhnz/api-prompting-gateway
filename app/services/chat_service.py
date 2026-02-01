@@ -145,6 +145,20 @@ def get_chat_history(
         .all()
     )
 
+def clear_chat_history(
+    db: Session,
+    baus_user_id: int
+) : 
+    chats = db.query(Message).filter(Message.baus_user_id==baus_user_id).all()
+    if not chats : 
+        return False
+    
+    for chat in chats : 
+        db.delete(chat)
+    
+    db.commit()
+    return True
+
 def safe_send_ws(baus_user_id: int, payload: dict):
     try:
         loop = asyncio.get_running_loop()

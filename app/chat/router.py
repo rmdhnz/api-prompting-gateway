@@ -71,8 +71,15 @@ async def send_chat(
         }
     )
 
-
-
+@router.delete("/clear",dependencies=[Depends(check_api_key)])
+def clear_chat(user_id: int,db: Session = Depends(get_db_session)) :
+    status = clear_history(
+        db,user_id
+    )
+    return JSONResponse(content={
+        "success": status,
+        "message" : "Berhasil clear chat"
+    })
 
 # @router.post("/send")
 # async def send_chat_ws(payload: ChatSendPayload,db: Session = Depends(get_db_session)):

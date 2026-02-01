@@ -6,7 +6,8 @@ from app.services.chat_service import (
     save_user_message,
     save_agent_message,
     generate_agent_reply,
-    get_chat_history
+    get_chat_history,
+    clear_chat_history
 )
 from modules.messaging.rabbitmq import publish_babe_message
 
@@ -25,6 +26,11 @@ def fetch_history(db: Session, baus_user_id: int):
         }
         for m in messages
     ]
+
+
+def clear_history(db: Session, baus_user_id: int) : 
+    status = clear_chat_history(db,baus_user_id)
+    return status
 
 
 async def handle_send_chat(
